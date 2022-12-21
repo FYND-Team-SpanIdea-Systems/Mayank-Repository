@@ -1,0 +1,89 @@
+<template>
+  <div class="image-wrapper">
+    <ul>
+        <li v-for="items in this.img" :key="items">
+            <img :src="items" />
+        </li>
+    </ul>
+  </div>
+</template>
+
+<script>
+export default {
+  name: "AnimationPLP",
+  data() {
+    return {
+      img: [
+        "http://www.megafonn.com/wp-content/uploads/2016/05/Ankara-katalog-tasarım-katalog-tasarım-katalog-tasarım-ankara-katalog-tasarım-firmalar-ankara-reklam-katalog-tasarım-örnekleri-10.jpg",
+        "http://www.megafonn.com/wp-content/uploads/2016/05/Ankara-katalog-tasarım-katalog-tasarım-katalog-tasarım-ankara-katalog-tasarım-firmalar-ankara-reklam-katalog-tasarım-örnekleri-9.jpg",
+        "http://www.megafonn.com/wp-content/uploads/2016/05/Ankara-katalog-tasarım-katalog-tasarım-katalog-tasarım-ankara-katalog-tasarım-firmalar-ankara-reklam-katalog-tasarım-örnekleri-8.jpg",
+        "http://www.megafonn.com/wp-content/uploads/2016/05/Ankara-katalog-tasarım-katalog-tasarım-katalog-tasarım-ankara-katalog-tasarım-firmalar-ankara-reklam-katalog-tasarım-örnekleri-7.jpg"
+
+      ],
+    };
+  },
+  mounted() {},
+};
+</script>
+
+<style scoped>
+.image-wrapper {
+  width: 350px;
+  height: 262px;
+  overflow: hidden;
+  position: relative;
+  float: left;
+  margin: 25px;
+  box-sizing: border-box;
+}
+.image-wrapper img {
+  width: 100%;
+}
+.image-wrapper ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  position: relative;
+  float: left;
+}
+.image-wrapper ul li {
+  display: inline-block;
+  width: 25%;
+  height: 100%;
+  opacity: 0;
+  -webkit-transition: 300ms;
+  transition: 300ms;
+}
+.image-wrapper ul li:before {
+  content: "";
+  width: 0%;
+  height: 2px;
+  background: #000;
+  position: absolute;
+  bottom: 0;
+  margin-left: 12.5%;
+  -webkit-transition: 300ms;
+  transition: 300ms;
+  z-index: 2;
+}
+.image-wrapper ul li:first-child {
+  opacity: 1;
+}
+.image-wrapper ul li:hover {
+  opacity: 1;
+}
+.image-wrapper ul li:hover:before {
+  width: 25%;
+  margin-left: 0%;
+}
+.image-wrapper ul li img {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  bottom: 0px;
+  left: 0;
+  pointer-events: none;
+}
+</style>
