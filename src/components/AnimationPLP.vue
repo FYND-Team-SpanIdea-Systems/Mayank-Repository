@@ -1,10 +1,12 @@
 <template>
-  <div class="image-wrapper">
-    <ul>
+  <div id="slider">
+    <div class="slide">
+      <ul class="mxx">
         <li v-for="items in this.img" :key="items">
-            <img :src="items" />
+          <img :src="items" />
         </li>
-    </ul>
+      </ul>
+    </div>
   </div>
 </template>
 
@@ -14,10 +16,10 @@ export default {
   data() {
     return {
       img: [
-        "http://www.megafonn.com/wp-content/uploads/2016/05/Ankara-katalog-tasarım-katalog-tasarım-katalog-tasarım-ankara-katalog-tasarım-firmalar-ankara-reklam-katalog-tasarım-örnekleri-10.jpg",
-        "http://www.megafonn.com/wp-content/uploads/2016/05/Ankara-katalog-tasarım-katalog-tasarım-katalog-tasarım-ankara-katalog-tasarım-firmalar-ankara-reklam-katalog-tasarım-örnekleri-9.jpg",
-        "http://www.megafonn.com/wp-content/uploads/2016/05/Ankara-katalog-tasarım-katalog-tasarım-katalog-tasarım-ankara-katalog-tasarım-firmalar-ankara-reklam-katalog-tasarım-örnekleri-8.jpg",
-        "http://www.megafonn.com/wp-content/uploads/2016/05/Ankara-katalog-tasarım-katalog-tasarım-katalog-tasarım-ankara-katalog-tasarım-firmalar-ankara-reklam-katalog-tasarım-örnekleri-7.jpg"
+        "http://i.hizliresim.com/WgXZpN.jpg",
+        "http://i.hizliresim.com/3vOalr.jpg",
+        "http://i.hizliresim.com/R1gVpa.jpg",
+        "http://i.hizliresim.com/pX5oMq.jpg"
 
       ],
     };
@@ -27,63 +29,75 @@ export default {
 </script>
 
 <style scoped>
-.image-wrapper {
-  width: 350px;
-  height: 262px;
+#slider {
+  margin: 20px;
+  width: 1000px;
+  height: 418px;
   overflow: hidden;
-  position: relative;
-  float: left;
-  margin: 25px;
-  box-sizing: border-box;
 }
-.image-wrapper img {
+
+.slide {
   width: 100%;
+  height: 400px;
+  /* overflow: hidden; */
 }
-.image-wrapper ul {
+
+.slide ul {
+  display: flex;
   list-style: none;
-  margin: 0;
-  padding: 0;
+}
+
+@keyframes slider {
+  from {
+    transform: translate3d(0px, 0px, 0px);
+  }
+
+  to {
+    transform: translate3d(-3000px, 0px, 0px);
+  }
+}
+
+#slider ul:hover {
+  animation: 6s slider linear both;
+}
+
+.mxx {
   width: 100%;
   height: 100%;
-  position: relative;
-  float: left;
 }
-.image-wrapper ul li {
-  display: inline-block;
-  width: 25%;
-  height: 100%;
-  opacity: 0;
-  -webkit-transition: 300ms;
-  transition: 300ms;
+
+.mxx img {
+  transition: 0.25s ease-in-out;
+  backface-visibility: hidden;
 }
-.image-wrapper ul li:before {
+
+.mxx:hover img {
+  transform: scale(1.2);
+  transform-origin: center;
+}
+
+div:before {
   content: "";
   width: 0%;
-  height: 2px;
-  background: #000;
+  height: 5px;
+  background: black;
   position: absolute;
-  bottom: 0;
-  margin-left: 12.5%;
-  -webkit-transition: 300ms;
-  transition: 300ms;
+  top: 432px;
+  margin-left: 0px;
+  transition: 200ms;
   z-index: 2;
 }
-.image-wrapper ul li:first-child {
+
+div:nth-child(n) {
   opacity: 1;
 }
-.image-wrapper ul li:hover {
+
+div:hover {
   opacity: 1;
 }
-.image-wrapper ul li:hover:before {
-  width: 25%;
-  margin-left: 0%;
-}
-.image-wrapper ul li img {
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  bottom: 0px;
-  left: 0;
-  pointer-events: none;
+
+div:hover:before {
+  width: 1000px;
+  /* margin-left: 0%; */
 }
 </style>
