@@ -66,7 +66,7 @@ export default {
   height: 100%;
 }
 
-.mxx img {
+li img {
   transition: 0.25s ease-in-out;
   backface-visibility: hidden;
 }
@@ -76,28 +76,29 @@ export default {
   transform-origin: center;
 }
 
-div:before {
+li:before {
   content: "";
   width: 0%;
   height: 5px;
-  background: black;
+  background: gold;
   position: absolute;
-  top: 432px;
-  margin-left: 0px;
+  bottom: -19px;
+  /* margin-left: 0px; */
   transition: 200ms;
   z-index: 2;
 }
 
-div:nth-child(n) {
+li:nth-child(1) {
   opacity: 1;
 }
 
-div:hover {
+li:hover {
   opacity: 1;
 }
 
-div:hover:before {
-  width: 1000px;
-  /* margin-left: 0%; */
+li:hover:before {
+  width: 890px;
+  text-align: center;
+  /* margin-left: 0px; */
 }
 </style>
