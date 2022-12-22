@@ -79,7 +79,7 @@ li img {
 li:before {
   content: "";
   width: 0%;
-  height: 5px;
+  height: 8px;
   background: gold;
   position: absolute;
   bottom: -19px;
