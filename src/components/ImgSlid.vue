@@ -1,6 +1,10 @@
 <template>
+  <div class="plp">
+    <AnimationPLP />
+  </div>
+  
   <div class="outer-wrapper">
-    <div class="inner-wrapper">
+    <div class="inner-wrapper fadeInUp">
       <div class="front-image-wrapper">
         <img id="image-front" />
       </div>
@@ -16,11 +20,20 @@
       </div>
     </div>
   </div>
+  <div>
+    <PageLoader />
+  </div>
 </template>
 
 <script>
+import AnimationPLP from './AnimationPLP.vue'
+import PageLoader from './PageLoader.vue'
 export default {
   name: "ImgSlide",
+  components:{
+    AnimationPLP,
+    PageLoader
+  },
   data() {
     return {
       imgArr: [
@@ -53,6 +66,7 @@ export default {
       
       let element = document.getElementById('image-front');
 
+
       setTimeout(() => {
         element.classList.add('image-leftR');
         console.log("ghjhhhhssssssssssssssssssssssssssssss",element);
@@ -76,6 +90,7 @@ export default {
 
       let element = document.getElementById("image-front");
 
+
       setTimeout(() => {
         element.classList.add('image-rightR');
         if (this.frontIndex === this.n) {
@@ -89,12 +104,14 @@ export default {
         setTimeout(() => {
           element.classList.remove('image-rightR');
         }, 1000);
+        
       }, 500);
     },
     rotateImage: function () {
       if (this.frontIndex == 0) {
         this.leftIndex = this.n;
         this.rightIndex = 1;
+
       } else if (this.frontIndex == this.n) {
         this.leftIndex = this.n - 1;
         this.rightIndex = 0;
@@ -102,7 +119,6 @@ export default {
         this.leftIndex = this.frontIndex - 1;
         this.rightIndex = this.frontIndex + 1;
       }
-      
       document.getElementById("image-left").src = this.imgArr[this.leftIndex];
       document.getElementById("image-front").src = this.imgArr[this.frontIndex];
       document.getElementById("image-right").src = this.imgArr[this.rightIndex];
@@ -112,6 +128,26 @@ export default {
 </script>
 
 <style scoped>
+
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 25%, 0);
+  }
+
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.fadeInUp {
+  animation: fadeInUp 0.4s linear forwards;
+}
+
+
+
 .outer-wrapper {
   display: flex;
   justify-content: center;
@@ -120,27 +156,60 @@ export default {
 .inner-wrapper {
   height: 661px;
   padding-top: 200px;
-  width: 880px;
 }
 
 .front-image-wrapper {
   margin-left: 50px;
   position: absolute;
-  z-index: 1;
 }
 
 #image-front {
   width: 375px;
   height: 500px;
   display: block;
-  z-index: 99;
+  z-index: 3;
 }
+
+/* .image-front_lR{
+  animation: front_lR 1s linear forwards;
+}
+
+@keyframes front_lR{
+  from{
+    transform: rotate(0deg);
+  }
+  to{
+    transform-origin: bottom left;
+    transform: rotate(-4.09deg);
+    z-index: -1;
+    width: 322px;
+    height: 429px;
+  }
+}
+
+.image-front_rR {
+  animation: front_rR 1s linear forwards;
+}
+
+@keyframes front_rR {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform-origin: bottom right;
+    transform: rotate(4.09deg);
+    z-index: -1;
+    width: 322px;
+    height: 429px;
+  }
+} */
 
 #image-left {
   width: 322px;
   height: 429px;
   margin-left: 78px;
-  animation: left 1s linear forwards;
+  animation: left 0.5s linear 0.9s forwards;
 }
 
 @keyframes left {
@@ -177,7 +246,7 @@ export default {
   height: 429px;
   left: 175px;
   position: absolute;
-  animation: right 1s linear forwards;
+  animation: right 0.5s linear 0.9s forwards;
 }
 
 @keyframes right {
@@ -195,7 +264,8 @@ export default {
   from {
     transform-origin: bottom right;
     transform: rotate(4.09deg);
-    z-index: -1;
+    z-index: -99;
+    
   }
 
   to {
@@ -210,7 +280,9 @@ export default {
 
 
 .back-image-wrapper {
-  margin-top: 50px;
+  position: absolute;
+  z-index: -1;
+  /* margin-top: 50px; */
   display: inline-flex;
   align-items: center;
   transform: translateX(-72px);
