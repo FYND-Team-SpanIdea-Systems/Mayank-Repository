@@ -1,28 +1,31 @@
 <template>
+  <div>
+    <PageLoader />
+  </div>
   <div class="plp">
     <AnimationPLP />
   </div>
+ 
   
   <div class="outer-wrapper">
     <div class="inner-wrapper fadeInUp">
-      <div class="front-image-wrapper">
-        <img id="image-front" />
+      <div class="hide">
+        <img id="image-front" :src="imgArr[frontIndex]" />
+        <img id="image-left" :src="imgArr[leftIndex]" />
+        <img id="image-right" :src="imgArr[rightIndex]" />
       </div>
       <div class="back-image-wrapper">
         <div id="left-btn" class="indicator-btn">
           <span>Left</span>
         </div>
-        <img id="image-left" />
-        <img id="image-right" />
         <div id="right-btn" class="indicator-btn">
           <span>Right</span>
         </div>
       </div>
     </div>
   </div>
-  <div>
-    <PageLoader />
-  </div>
+  
+
 </template>
 
 <script>
@@ -33,7 +36,7 @@ export default {
   components:{
     AnimationPLP,
     PageLoader
-  },
+},
   data() {
     return {
       imgArr: [
@@ -53,9 +56,9 @@ export default {
     this.leftIndex = this.n;
     this.frontIndex = 0;
     this.rightIndex = this.frontIndex + 1;
-    document.getElementById("image-left").src = this.imgArr[this.leftIndex];
-    document.getElementById("image-front").src = this.imgArr[this.frontIndex];
-    document.getElementById("image-right").src = this.imgArr[this.rightIndex];
+    document.getElementById("image-left").div = this.imgArr[this.leftIndex];
+    document.getElementById("image-front").div = this.imgArr[this.frontIndex];
+    document.getElementById("image-right").div = this.imgArr[this.rightIndex];
 
 
     document.getElementById("left-btn").addEventListener("click", this.slideLeft);
@@ -64,14 +67,14 @@ export default {
   methods: {
     slideLeft: function () {
       
-      let element = document.getElementById('image-front');
-
-
+      let Front = document.getElementById('image-front');
+      let Right = document.getElementById('image-right');
+      let Left = document.getElementById('image-left');
       setTimeout(() => {
-        element.classList.add('image-leftR');
-        console.log("ghjhhhhssssssssssssssssssssssssssssss",element);
-        console.log("ghjhhhhssssssssssssssssssssssssssssss", element.style);
-
+        Front.classList.add('image-leftR');
+        Left.classList.add('image-lefth');
+        Right.classList.add('image-rightr');
+        
         if (this.frontIndex === 0) {
           this.frontIndex = this.n;
         } else {
@@ -82,17 +85,22 @@ export default {
         this.rotateImage();
 
         setTimeout(() => {
-          element.classList.remove("image-leftR");
+          Front.classList.remove("image-leftR");
+          Right.classList.remove('image-rightr');
+          Left.classList.remove('image-lefth');
         }, 1000);
       }, 500);
     },
     slideRight: function () {
 
-      let element = document.getElementById("image-front");
-
-
+      let Front = document.getElementById("image-front");
+      let Left = document.getElementById('image-left');
+      let Right = document.getElementById('image-right');
       setTimeout(() => {
-        element.classList.add('image-rightR');
+        Front.classList.add('image-rightR');
+        Left.classList.add('image-Leftr');
+        Right.classList.add('image-righth');
+
         if (this.frontIndex === this.n) {
           this.frontIndex = 0;
         } else {
@@ -102,9 +110,10 @@ export default {
         this.rotateImage();
 
         setTimeout(() => {
-          element.classList.remove('image-rightR');
+          Front.classList.remove('image-rightR');
+          Left.classList.remove('image-Leftr');
+          Right.classList.remove('image-righth');
         }, 1000);
-        
       }, 500);
     },
     rotateImage: function () {
@@ -119,17 +128,15 @@ export default {
         this.leftIndex = this.frontIndex - 1;
         this.rightIndex = this.frontIndex + 1;
       }
-      document.getElementById("image-left").src = this.imgArr[this.leftIndex];
-      document.getElementById("image-front").src = this.imgArr[this.frontIndex];
-      document.getElementById("image-right").src = this.imgArr[this.rightIndex];
+      document.getElementById("image-left").div = this.imgArr[this.leftIndex];
+      document.getElementById("image-front").div = this.imgArr[this.frontIndex];
+      document.getElementById("image-right").div = this.imgArr[this.rightIndex];
     },
   },
 };
 </script>
 
 <style scoped>
-
-
 @keyframes fadeInUp {
   from {
     opacity: 0;
@@ -143,136 +150,145 @@ export default {
 }
 
 .fadeInUp {
+  height: 500px;
   animation: fadeInUp 0.4s linear forwards;
 }
 
 
 
 .outer-wrapper {
-  display: flex;
-  justify-content: center;
-}
-
-.inner-wrapper {
-  height: 661px;
+  padding-left: 500px;
   padding-top: 200px;
+  background-color: antiquewhite;
+  height: 1000px;
+
 }
 
-.front-image-wrapper {
-  margin-left: 50px;
-  position: absolute;
-}
 
 #image-front {
   width: 375px;
-  height: 500px;
-  display: block;
-  z-index: 3;
+  height: 430px;
+  position: absolute;
+  /* top: -5px; */
 }
-
-/* .image-front_lR{
-  animation: front_lR 1s linear forwards;
-}
-
-@keyframes front_lR{
-  from{
-    transform: rotate(0deg);
-  }
-  to{
-    transform-origin: bottom left;
-    transform: rotate(-4.09deg);
-    z-index: -1;
-    width: 322px;
-    height: 429px;
-  }
-}
-
-.image-front_rR {
-  animation: front_rR 1s linear forwards;
-}
-
-@keyframes front_rR {
-  from {
-    transform: rotate(0deg);
-  }
-
-  to {
-    transform-origin: bottom right;
-    transform: rotate(4.09deg);
-    z-index: -1;
-    width: 322px;
-    height: 429px;
-  }
-} */
 
 #image-left {
   width: 322px;
-  height: 429px;
-  margin-left: 78px;
-  animation: left 0.5s linear 0.9s forwards;
+  height: 390px;
+  position: absolute;
+  left: 0px;
+  top:20px;
+  z-index: -2;
+  animation: left 0.9s 0.3s forwards ;
 }
 
 @keyframes left {
   to {
+    left: -12px;
+    transform-origin: bottom left;
+    transform: rotate(-4.09deg);
+  }
+
+}
+
+.image-Leftr{
+  animation: LeftRRR 0.1s !important;
+}
+@keyframes LeftRRR {
+  to{
+    transform: rotate(0deg);
+  }
+}
+
+.image-leftR {
+  animation: left_R 0.9s linear forwards;
+}
+
+@keyframes left_R {
+  from {
+    width: 322px;
+    height: 390px;
+    left: -12px;
     transform-origin: bottom left;
     transform: rotate(-4.09deg);
     z-index: -1;
   }
 
-}
-
-.image-leftR {
-  animation: left_R 0.5s linear forwards;
-}
-
-@keyframes left_R {
-  from {
-    transform-origin: bottom left;
-    transform: rotate(-4.09deg);
-    z-index: -2;
-  }
-
   to {
     z-index: 0;
     transform: rotate(0deg);
     width: 375px;
-    height: 500px;
+    height: 430px;
   }
 
 }
 
+.image-lefth {
+  opacity: -1;
+  animation: 0.1s linear forwards !important;
+}
+
+
 #image-right {
   width: 322px;
-  height: 429px;
-  left: 175px;
+  height: 390px;
+  left: 52px;
+  top: 20px;
   position: absolute;
-  animation: right 0.5s linear 0.9s forwards;
+  animation: right 0.9s 0.2s linear forwards;
+  z-index: -2;
 }
 
 @keyframes right {
   to {
+    left: 65px;
     transform-origin: bottom right;
     transform: rotate(4.09deg);
   }
 }
 
+.image-rightr {
+  animation: rightRRR linear !important;
+}
+
+@keyframes rightRRR {
+  from{
+    z-index: 1;
+  }
+  to {
+    z-index: 0;
+    transform: rotate(0deg);
+  }
+}
+
+.image-righth{
+    opacity: -1;
+    animation:  0.5s linear forwards !important;
+  }
+  
+  
+
 .image-rightR {
-  animation: rR 0.5s linear forwards;
+  animation: rR 0.9s linear forwards;
 }
 
 @keyframes rR {
   from {
+    width: 322px;
+    height: 390px;
+    left: 65px;
     transform-origin: bottom right;
     transform: rotate(4.09deg);
-    z-index: -99;
-    
+    z-index: -1;
   }
 
   to {
+    width: 375px;
+    height: 430px;
+    left: 0px;
     z-index: 0;
     transform: rotate(0deg);
-    width: 375px;
-    height: 500px;
+    
   }
 
 }
@@ -298,8 +314,12 @@ export default {
   cursor: pointer;
 }
 
+#left-btn{
+  margin-left: -110px;
+}
+
 #right-btn {
-  margin-left: 130px;
+  margin-left: 670px;
 }
 
 .indicator-btn span {

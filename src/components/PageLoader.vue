@@ -42,8 +42,8 @@ export default {
             setInterval(() => {
                 if (counter >= 101) {
                     clearInterval();
-                    loader.style.visibilty = "hidden";
-                    loader.style.opacity = "0";
+                    loader.style.display = "none";
+                    // loader.style.opacity = "0";
                     // show.style.visibility = "visible";
                 } else {
                     counter += 1;
