@@ -24,43 +24,52 @@
             <div class="numb">0%</div>
         </div>
     </div>
+    <div class="mayank">
+        <AnimationPLP />
+    </div>
 </div>
 </template>
 
 <script>
+import AnimationPLP from './AnimationPLP.vue';
+
 export default {
     name: "PageLoader",
     mounted() {
         this.onload();
     },
     methods: {
-        onload: function(){
+        onload: function () {
             let numb = document.querySelector(".numb");
             let loader = document.querySelector(".loadin-page");
+            let mayank = document.querySelector(".mayank");
+            mayank.style.visibility = "hidden";
             let counter = 0;
-            
             setInterval(() => {
                 if (counter >= 101) {
                     clearInterval();
                     loader.style.display = "none";
+                    mayank.style.visibility = "visible";
                     // loader.style.opacity = "0";
                     // show.style.visibility = "visible";
-                } else {
+                }
+                else {
                     counter += 1;
                     numb.textContent = counter + "%";
                 }
             }, 20);
         }
-    },  
+    },
+    components: { AnimationPLP }
 }
 </script>
 
 <style scoped>
 .loadin-page {
     position: absolute;
-    background-color: #f7e7cf;
+    /* background-color: #f7e7cf; */
     width: 99vmax;
-    height: 50vmax;
+    /* height: 50vmax; */
     margin: 0px;
     padding: 0px;
 }
@@ -71,7 +80,7 @@ export default {
 }
 
 .progress {
-    background-color: #f7e7cf;
+    background-color: transparent;
     height: 160px;
     position: relative;
     display: inline-block;

@@ -1,8 +1,8 @@
 <template>
     <div class="main-container">
         
-        <div class="container">
-            <div class="container" v-for="(image,index) in images">
+        <div class="container" >
+            <div class="container" @mouseleave="imgHoverout" @mouseenter="imgHover" v-for="(image,index) in images">
                 <img v-bind:src="image" :key="index" v-if="index === currentIndex"  />
             </div>
             <div v-show="visible" class="indicator-container">
@@ -10,9 +10,9 @@
                     ></span>
             </div>
         </div>
-        <div class="transparent-div" @mouseleave="imgHoverout" @mouseenter="imgHover">
+        <!-- <div class="transparent-div" @mouseleave="imgHoverout" @mouseenter="imgHover">
             
-        </div>
+        </div> -->
     </div>
 </template>
 
@@ -28,21 +28,28 @@ export default {
             currentIndex: 0,
             myInterval : '',
             statesCount: 1,
-            visible : false
+            visible : false,
+            IsRunning : false
+
             // setIntervalid : '',
         }
     },
     methods: {
         imgHover() {
-            this.myInterval =  setInterval(() => {
-                this.currentIndex = (this.currentIndex + 1 + this.images.length) % this.images.length;
+            if(this.IsRunning == false){
+                this.IsRunning = true;
+                this.myInterval =  setInterval(() => {
+                    this.currentIndex = (this.currentIndex + 1 + this.images.length) % this.images.length;
                },1500)
-               this.visible = true;
+            }
+            this.visible = true;
             console.log("Inside", this.myInterval);
+          
         },
         imgHoverout(){
             this.currentIndex = 0 ;
             this.visible = false;
+            this.IsRunning = false;
             clearInterval(this.myInterval);
             console.log("Outside", this.myInterval)
         }
@@ -57,16 +64,6 @@ export default {
     margin-top: 250px;
     margin-bottom: 250px;
     position: relative;
-}
-.transparent-div{
-    border: 1px solid black;
-    background-color: transparent;
-    width: 298px;
-    height: 522px;
-    position: absolute;
-    left: 790px;
-    top: 0px;
-    opacity: 0;
 }
 
 .container {

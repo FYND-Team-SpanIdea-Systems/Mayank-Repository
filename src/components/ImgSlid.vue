@@ -2,8 +2,8 @@
   <div>
     <PageLoader />
   </div>
-  <div class="plp">
-    <AnimationPLP />
+  <div>
+  <AnimationPLP />
   </div>
  
   
@@ -159,7 +159,7 @@ export default {
 .outer-wrapper {
   padding-left: 500px;
   padding-top: 200px;
-  background-color: antiquewhite;
+  /* background-color: antiquewhite; */
   height: 1000px;
 
 }
