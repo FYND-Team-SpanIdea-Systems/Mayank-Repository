@@ -2,9 +2,6 @@
   <div>
     <PageLoader />
   </div>
-  <div>
-  <AnimationPLP />
-  </div>
  
   
   <div class="outer-wrapper">
